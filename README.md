@@ -1,1 +1,1 @@
-# grpc_basics_golang
+Basic Client Server program in GRPC 

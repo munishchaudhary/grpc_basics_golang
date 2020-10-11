@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package first;
+
+option go_package="firstpb";
+//service for grpc request
+service FirstService{}
