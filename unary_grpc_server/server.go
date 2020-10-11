@@ -2,28 +2,30 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net"
 
-	"github.com/grpc_basics_golang/personpb"
+	personpb "github.com/grpc_basics_golang/unarypb"
 	"google.golang.org/grpc"
 )
 
 type server struct{}
 
-func (*server) Per(ctx context.Context, req *personpb.PersonRequest) (*personpb.GreetResponse, error) {
+/**
+** GetFirstName rpc request reciever function
+**/
+func (*server) GetFirstName(ctx context.Context, req *personpb.PersonRequest) (*personpb.PersonResponse, error) {
 	log.Println("Request recieved for Person")
 	firstName := req.GetPerson().GetFirstName()
-	result := "Hello " + firstName
+	result := "First Name: " + firstName
 	res := &personpb.PersonResponse{
 		Result: result,
 	}
 	return res, nil
-}
 
+}
 func main() {
-	fmt.Println("Starting grpc server ...")
+	log.Println("Starting grpc server ...")
 	// bind host ip address and port with the server
 	l, e := net.Listen("tcp", "localhost:50051")
 	if e != nil {
@@ -32,7 +34,7 @@ func main() {
 	// create a new grpc server object
 	s := grpc.NewServer()
 	// register grpc server with the proto file
-	personpb.RegisterFirstServiceServer(s, &server{})
+	personpb.RegisterPersonServiceServer(s, &server{})
 	if err := s.Serve(l); err != nil {
 		log.Fatalf("failed to serve: %v ", err)
 	}

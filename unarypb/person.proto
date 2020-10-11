@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package person;
+
+option go_package="personpb";
+
+message Person {
+    string first_name = 1;
+    string last_name = 2;
+}
+message PersonRequest{
+    Person person = 1;
+}
+message PersonResponse{
+    string result = 1;
+}
+service PersonService{
+    rpc GetFirstName(PersonRequest) returns (PersonResponse) {};
+}
