@@ -1,1 +1,0 @@
-protoc -I=firstpb/ --go_out=firstpb/ firstpb/first.proto
